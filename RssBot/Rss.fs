@@ -1,7 +1,12 @@
-﻿open System.Globalization
+﻿module Rss
+
+open System.Globalization
 open System.Xml
 open System.Text
 open System.Net
+open System.IO
+open System.Linq
+open System.Collections.Generic
 open System
 
 type RssPost = { title: string; link: string; date: DateTime }
@@ -19,8 +24,8 @@ let parseDate = (flip4 (DateTime.ParseExact:string*string[]*CultureInfo*DateTime
                         CultureInfo.InvariantCulture
                         [|"ddd, dd MMM yyyy HH:mm:ss GMT"; "ddd, dd MMM yyyy HH:mm:ss zzz"|]
 
-let getRssPosts (host:string) = 
-    let  wc = new WebClient()
+let public getRssPosts (host:string) = 
+    let wc = new WebClient()
     let doc = new XmlDocument()
     host 
         |> wc.DownloadString 
@@ -35,14 +40,7 @@ let getRssPosts (host:string) =
                 date = parseDate (node.SelectSingleNode "pubDate").InnerText
             }))
 
-
-
-[<EntryPoint>]
-let main argv = 
-    ["https://news.google.com/?output=rss"; "http://nure.ua/category/all_news/feed/"]
-        |> Seq.map getRssPosts
-        |> Seq.concat
-        |> Seq.sortBy (fun p -> p.date)
-        |> Seq.iter (fun (p:RssPost) -> Console.WriteLine (p.date.ToString "dd/MM/yyyy"))    
-    Console.ReadLine() |> ignore
-    0
+let public getManyRssPosts: (list<string> -> list<RssPost>) = 
+    Seq.map getRssPosts 
+    >> Seq.concat 
+        >> Seq.toList

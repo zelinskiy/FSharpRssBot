@@ -54,9 +54,15 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="Rss.fs" />
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="TelegramBot.fs" />
+    <Compile Include="RssBot.fs" />
+    <Compile Include="Main.fs" />
     <None Include="App.config" />
+    <Content Include="Configuration.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
