@@ -1,16 +1,9 @@
-﻿module RssBot
+﻿module SettingsLoader
 
-open Rss
-
-open System.Globalization
-open System.Xml
-open System.Text
-open System.Net
 open System.IO
-open System.Linq
 open System.Collections.Generic
+open System.Linq
 open System
-
 
 let loadsettings filepath = 
     filepath
@@ -19,9 +12,3 @@ let loadsettings filepath =
         |> ( fun x -> x.ToDictionary<string[], string, string>((fun p->p.ElementAt(0)), (fun p->p.ElementAt(1))))
 
 let SETTINGS = loadsettings "Configuration.txt"
-
-
-
-        
-
-

@@ -54,10 +54,10 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="SettingsLoader.fs" />
     <Compile Include="Rss.fs" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="TelegramBot.fs" />
-    <Compile Include="RssBot.fs" />
     <Compile Include="Main.fs" />
     <None Include="App.config" />
     <Content Include="Configuration.txt">
