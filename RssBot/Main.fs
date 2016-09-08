@@ -6,10 +6,14 @@ open TelegramBot
 open System
 
 [<EntryPoint>]
-let main argv =    
-    //getManyRssPosts ["https://news.google.com/?output=rss"; "http://nure.ua/category/all_news/feed/"] |> ignore   
-    
-    printfn "%s" test
-    
+let main argv =  
+    test 0    
     Console.ReadLine() |> ignore
     0
+
+(*
+TODO:
+-/news n command
+-subscribe/unsubscribe
+-Save users subscriptions as json (mb SQL)
+*)

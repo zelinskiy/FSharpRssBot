@@ -39,7 +39,7 @@ let public getRssPosts (host:string) =
     host 
         |> Network.getAsync
         |> Async.RunSynchronously
-        |> winToUtf 
+        //|> winToUtf 
         |> doc.LoadXml
     doc.SelectNodes "/rss/channel/item"
         |> Seq.cast<XmlNode>
