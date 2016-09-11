@@ -19,15 +19,11 @@ open FSharp.Data.JsonExtensions
 
 type Command = Subscribe | GetNews
 
+
+
 let delay = SETTINGS.Item "Delay" |> System.Int32.Parse
 let token = SETTINGS.Item "Token"
 let prefix = "https://api.telegram.org/bot" + token + "/"
-
-let makeParamsString (pars:list<string*string>) =
-    pars
-    |> Seq.map (fun (a, b) -> a + "=" + b)
-    |> (fun s -> String.Join("&", s))
-    |> (fun s -> "?" + s)
 
 let makeRequest (methodName:string) (pars:list<string*string>) = 
     let request_url = prefix + methodName + makeParamsString pars
@@ -52,6 +48,8 @@ let getNews n =
         |> Seq.map (fun p -> "Title: " + p.title ) 
         |> Seq.take n
         |> String.concat "\n\n"
+
+let processCommandArguments (cmd:string) (types:array<string>) = [| "lol" |]
 
 let processCommand command = 
     match command with
