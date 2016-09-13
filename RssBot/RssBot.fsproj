@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="SettingsLoader.fs" />
+    <Compile Include="Database.fs" />
     <Compile Include="Network.fs" />
     <Compile Include="Rss.fs" />
     <Compile Include="TelegramBot.fs" />
@@ -71,12 +72,17 @@
       <HintPath>..\packages\FSharp.Data.2.3.2\lib\net40\FSharp.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FSharp.Data.SqlClient">
+      <HintPath>..\packages\FSharp.Data.SqlClient.1.8.2\lib\net40\FSharp.Data.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
