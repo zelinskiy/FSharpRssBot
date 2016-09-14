@@ -8,6 +8,11 @@ open System.Linq
 
 type User = { Name:string; Subscriptions:List<string>}
 
+let private parseSubscriptionsString (str:string) = 
+    str.Split([|','|]) 
+    |> Seq.tail 
+    |> Seq.toList
+
 [<Literal>]
 let connectionString = 
     @"Data Source=localhost\SQLEXPRESS;" + 
@@ -76,7 +81,17 @@ let removeSubscription username subname =
     with
         | :? SqlException as ex -> false
 
-
+let getSubscriptions username = 
+    use cmd = new SqlCommandProvider<"
+        SELECT Subscriptions from dbo.Persons
+        WHERE Name = @_username
+        ", connectionString>(connectionString)
+    match cmd.Execute(_username = username) |> Seq.toList  with
+    | [subs]-> subs |> parseSubscriptionsString |> Some
+    | _ -> None
+    
+    
+        
 
 let allUsers = 
     use cmd = new SqlCommandProvider<"
@@ -86,5 +101,5 @@ let allUsers =
         |> Seq.map (fun x -> 
             { 
                 Name = x.Name; 
-                Subscriptions = x.Subscriptions.Split([|','|]) |> Seq.tail |> Seq.toList 
+                Subscriptions = parseSubscriptionsString x.Subscriptions
             })
